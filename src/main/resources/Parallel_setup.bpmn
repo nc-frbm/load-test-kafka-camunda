@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1sm8gye" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Parallel_process" isExecutable="true">
+    <bpmn:startEvent id="startParallel" name="Start parallel">
+      <bpmn:outgoing>Flow_15q8r04</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_1ngw4ic">
+      <bpmn:incoming>Flow_0tt6iei</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_17xdcxs" />
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="CorrelationMessage" name="Correlelation">
+      <bpmn:incoming>Flow_1aktmqo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e0enzi</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_09u4trq" messageRef="Message_15itmhf" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:parallelGateway id="Gateway_0uxgcnc">
+      <bpmn:incoming>Flow_15q8r04</bpmn:incoming>
+      <bpmn:outgoing>Flow_1aktmqo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_00f1ieu</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="Gateway_1sm6mbb" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_0e0enzi</bpmn:incoming>
+      <bpmn:incoming>Flow_0u8rn29</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tt6iei</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sendTask id="Requester" name="Make request" camunda:asyncBefore="true" camunda:class="com.example.workflow.Printer">
+      <bpmn:extensionElements>
+        <camunda:failedJobRetryTimeCycle>R3/PT0.5S</camunda:failedJobRetryTimeCycle>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_00f1ieu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0u8rn29</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_15q8r04" sourceRef="startParallel" targetRef="Gateway_0uxgcnc" />
+    <bpmn:sequenceFlow id="Flow_0tt6iei" sourceRef="Gateway_1sm6mbb" targetRef="Event_1ngw4ic" />
+    <bpmn:sequenceFlow id="Flow_1aktmqo" sourceRef="Gateway_0uxgcnc" targetRef="CorrelationMessage" />
+    <bpmn:sequenceFlow id="Flow_0e0enzi" sourceRef="CorrelationMessage" targetRef="Gateway_1sm6mbb" />
+    <bpmn:sequenceFlow id="Flow_00f1ieu" sourceRef="Gateway_0uxgcnc" targetRef="Requester" />
+    <bpmn:sequenceFlow id="Flow_0u8rn29" sourceRef="Requester" targetRef="Gateway_1sm6mbb" />
+  </bpmn:process>
+  <bpmn:message id="Message_15itmhf" name="ResponseMessage" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Parallel_process">
+      <bpmndi:BPMNEdge id="Flow_0u8rn29_di" bpmnElement="Flow_0u8rn29">
+        <di:waypoint x="550" y="123" />
+        <di:waypoint x="665" y="123" />
+        <di:waypoint x="665" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00f1ieu_di" bpmnElement="Flow_00f1ieu">
+        <di:waypoint x="280" y="175" />
+        <di:waypoint x="280" y="123" />
+        <di:waypoint x="450" y="123" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e0enzi_di" bpmnElement="Flow_0e0enzi">
+        <di:waypoint x="508" y="293" />
+        <di:waypoint x="665" y="293" />
+        <di:waypoint x="665" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1aktmqo_di" bpmnElement="Flow_1aktmqo">
+        <di:waypoint x="280" y="225" />
+        <di:waypoint x="280" y="293" />
+        <di:waypoint x="472" y="293" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tt6iei_di" bpmnElement="Flow_0tt6iei">
+        <di:waypoint x="690" y="200" />
+        <di:waypoint x="812" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15q8r04_di" bpmnElement="Flow_15q8r04">
+        <di:waypoint x="188" y="200" />
+        <di:waypoint x="255" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0qoweq2_di" bpmnElement="startParallel">
+        <dc:Bounds x="152" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="139" y="225" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ngw4ic_di" bpmnElement="Event_1ngw4ic">
+        <dc:Bounds x="812" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_142ea5s_di" bpmnElement="CorrelationMessage">
+        <dc:Bounds x="472" y="275" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="458" y="253" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0uxgcnc_di" bpmnElement="Gateway_0uxgcnc">
+        <dc:Bounds x="255" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1sm6mbb_di" bpmnElement="Gateway_1sm6mbb">
+        <dc:Bounds x="640" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1uq1wb3_di" bpmnElement="Requester">
+        <dc:Bounds x="450" y="83" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -28,6 +28,6 @@ public class Application implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    sendMessage("test test");
+//    sendMessage("test test");
   }
 }
