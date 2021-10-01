@@ -1,0 +1,10 @@
+.idea
+
+### Gradle ###
+.gradle
+build/
+
+# Ignore Gradle build output directory
+build
+target
+*.iml
