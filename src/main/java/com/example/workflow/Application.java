@@ -10,11 +10,15 @@ import org.springframework.kafka.core.KafkaTemplate;
 @SpringBootApplication
 public class Application implements ApplicationRunner {
 
-  @Autowired
+  @Autowired(required = false)
   private KafkaTemplate<String, String> kafkaTemplate;
 
   public void sendMessage(String msg) {
-    kafkaTemplate.send("dms.load.test.1", msg);
+    if (kafkaTemplate != null) {
+      kafkaTemplate.send("dms.load.test.1", msg);
+    } else {
+      System.out.println("Kafka not enabled");
+    }
   }
 
   public static void main(String... args) {

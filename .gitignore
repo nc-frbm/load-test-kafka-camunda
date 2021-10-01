@@ -8,3 +8,4 @@ build/
 build
 target
 *.iml
+camunda-h2-database.mv.db
