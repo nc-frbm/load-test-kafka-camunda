@@ -7,7 +7,8 @@ public class Printer implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        System.out.println("I was called");
+        System.out.println("PRINTER: getProcessInstanceId=" + delegateExecution.getProcessInstanceId());
+        System.out.println("PRINTER: " + delegateExecution.getProcessBusinessKey());
     }
 
 }

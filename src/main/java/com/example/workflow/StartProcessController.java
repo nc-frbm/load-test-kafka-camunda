@@ -12,10 +12,13 @@ public class StartProcessController {
     @Autowired
     RuntimeService runtimeService;
 
-    @GetMapping("/start/{processId}/{businessKey}")
-    public String startProcess(@PathVariable(name = "processId") String processId,
-                               @PathVariable(name = "businessKey") String businessKey) {
-        runtimeService.startProcessInstanceById(processId, businessKey);
+    @GetMapping("/start/{processKey}/{businessKey}/{count}")
+    public String startProcess(@PathVariable(name = "processKey") String processKey,
+                               @PathVariable(name = "businessKey") String businessKey,
+                               @PathVariable(name = "count") int count) {
+        for (int i = 1; i <= count; i++) {
+            runtimeService.startProcessInstanceByKey(processKey, businessKey + "_" + i);
+        }
         return "Process Started";
     }
 
