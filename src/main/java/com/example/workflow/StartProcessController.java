@@ -12,10 +12,10 @@ public class StartProcessController {
     @Autowired
     RuntimeService runtimeService;
 
-    @GetMapping("/start/{processId}/{businessKey}")
-    public String startProcess(@PathVariable(name = "processId") String processId,
+    @GetMapping("/start/{processKey}/{businessKey}")
+    public String startProcess(@PathVariable(name = "processKey") String processKey,
                                @PathVariable(name = "businessKey") String businessKey) {
-        runtimeService.startProcessInstanceById(processId, businessKey);
+        runtimeService.startProcessInstanceByKey(processKey, businessKey);
         return "Process Started";
     }
 
@@ -25,4 +25,11 @@ public class StartProcessController {
         runtimeService.correlateMessage(messageName, businessKey);
         return "Message correlated";
     }
+
+    @GetMapping("/update-variable/{processInstanceId}")
+    public String updateVariable(@PathVariable(name = "processInstanceId") String processInstanceId) {
+        runtimeService.setVariable(processInstanceId, "requestDone", true);
+        return "Variable updated to true";
+    }
+
 }
