@@ -13,7 +13,7 @@ public class Printer implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         delegateExecution.setVariable("requestDone", true);
-        System.out.println("I updated the condition to true for instance ID: " + delegateExecution.getActivityInstanceId());
+        System.out.println("PRINTER: I updated the condition to true for instance ID: " + delegateExecution.getActivityInstanceId());
     }
 
 }

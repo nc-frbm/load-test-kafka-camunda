@@ -2,6 +2,8 @@ package com.example.workflow;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.camunda.bpm.engine.RuntimeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,9 @@ import java.util.Map;
 @Configuration
 @Profile("kafka")
 public class KafkaConsumerConfig {
+
+    @Autowired
+    RuntimeService runtimeService;
 
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
@@ -55,7 +60,8 @@ public class KafkaConsumerConfig {
     }
 
     @KafkaListener(topics = "dms.load.test.1", groupId = "${spring.kafka.consumer.group-id}")
-    public void listenGroupFoo(String message) {
-        System.out.println("Received Message in group foo: " + message);
+    public void listenGroupFoo(String businessKey) {
+        runtimeService.correlateMessage("ResponseMessage", businessKey);
+        System.out.println("Correlation of businessKey " + businessKey);
     }
 }

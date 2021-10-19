@@ -23,7 +23,7 @@
       <bpmn:incoming>Flow_0u8rn29</bpmn:incoming>
       <bpmn:outgoing>Flow_0tt6iei</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:sendTask id="Requester" name="Make request" camunda:asyncBefore="true" camunda:class="com.example.workflow.Printer">
+    <bpmn:sendTask id="Requester" name="Make request" camunda:asyncBefore="true" camunda:delegateExpression="${producerService}">
       <bpmn:extensionElements>
         <camunda:failedJobRetryTimeCycle>R3/PT0.5S</camunda:failedJobRetryTimeCycle>
       </bpmn:extensionElements>
