@@ -7,7 +7,7 @@ public class Sleeper implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         System.out.println("Starting sleep");
-        Thread.sleep(1000);
+        Thread.sleep(15000);
         System.out.println("Ending sleep");
     }
 }

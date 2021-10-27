@@ -1,22 +1,25 @@
 package com.example.workflow.integration;
 
+import com.example.workflow.kafka.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 
+@Configuration
 public class ValidationService {
 
-//    @Autowired
-//    private KafkaTemplate<String, String> kafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
-    @KafkaListener(topics = "dms.load.test.validation.request", groupId = "${spring.kafka.consumer.group-id}")
-    public void listenGroupFoo(String processId) {
-        System.out.println("Read validation.request event with businessKey=" + processId);
-        publishValidationResult(processId);
+    @KafkaListener(topics = "dms.load.test.validation.start", groupId = "${spring.kafka.consumer.group-id}")
+    public void listenGroupFoo(String processInstanceId) {
+        System.out.println(getClass().getSimpleName() + ": Read validation.request event with processInstanceId=" + processInstanceId);
+        publishValidationResult(processInstanceId);
     }
 
-    private void publishValidationResult(String processId){
-//        kafkaTemplate.send("dms.load.test.validation.result", processId);
-        System.out.println("Send response to validation topic dms.load.test.validation.result");
+    private void publishValidationResult(String processInstanceId){
+        kafkaTemplate.send(Topic.VALIDATION_COMPLETED.getTopic(), processInstanceId);
+        System.out.println(getClass().getSimpleName() + ": Sending response to " + Topic.VALIDATION_COMPLETED.getTopic());
     }
 }

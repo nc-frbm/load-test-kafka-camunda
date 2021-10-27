@@ -29,4 +29,19 @@ public class KafkaTopicConfig {
     public NewTopic topic1() {
         return new NewTopic("dms.load.test.1", 1, (short) 1);
     }
+
+    @Bean
+    public NewTopic startProcessTopic() {
+        return new NewTopic(Topic.PROCESS_START.getTopic(), 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic startValidationTopic() {
+        return new NewTopic(Topic.VALIDATION_STARTED.getTopic(), 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic validationCompletedTopic() {
+        return new NewTopic(Topic.VALIDATION_COMPLETED.getTopic(), 1, (short) 1);
+    }
 }

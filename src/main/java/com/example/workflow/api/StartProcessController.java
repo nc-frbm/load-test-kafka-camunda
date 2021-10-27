@@ -1,5 +1,6 @@
 package com.example.workflow.api;
 
+import com.example.workflow.kafka.Topic;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -21,7 +22,7 @@ public class StartProcessController {
                                @PathVariable(name = "businessKey") String businessKey,
                                @PathVariable(name = "count") int count) {
         for (int i = 1; i <= count; i++) {
-            runtimeService.startProcessInstanceByKey(processKey, businessKey + "_" + i);
+            kafkaTemplate.send(Topic.PROCESS_START.getTopic(), businessKey + "-" + i);
         }
         return "Process Started";
     }
@@ -44,7 +45,11 @@ public class StartProcessController {
 
     @GetMapping("/update-variable/{processId}")
     public String correlateMessage(@PathVariable(name = "processId") String processId) {
-        runtimeService.setVariable(processId, "requestDone", true);
+        try{
+            runtimeService.setVariable(processId, "validationDone", true);
+        }catch(Exception e){
+            return "Error happened... " + e.getMessage();
+        }
         return "Variable updated";
     }
 }

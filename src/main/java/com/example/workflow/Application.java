@@ -1,5 +1,6 @@
 package com.example.workflow;
 
+import com.example.workflow.kafka.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,8 +16,7 @@ public class Application implements ApplicationRunner {
 
   public void sendMessage(String msg) {
     if (kafkaTemplate != null) {
-      kafkaTemplate.send("dms.load.test.1", msg);
-      System.out.println("Send kafka message");
+      //kafkaTemplate.send(Topic.PROCESS_START.getTopic(), msg);
     } else {
       System.out.println("Kafka not enabled");
     }
