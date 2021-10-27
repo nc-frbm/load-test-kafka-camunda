@@ -9,12 +9,12 @@
       <bpmn:incoming>Flow_1o2c9au</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_116s14q" />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Generate_request" name="Generate request" camunda:class="com.example.workflow.Printer">
+    <bpmn:serviceTask id="Generate_request" name="Generate request" camunda:class="com.example.workflow.integration.ProcessManager">
       <bpmn:incoming>Flow_0jx2oka</bpmn:incoming>
       <bpmn:outgoing>Flow_1jet9rd</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:intermediateCatchEvent id="Event_0uetrfz" name="Waiting for request to complete">
-      <bpmn:incoming>Flow_1nz9xwo</bpmn:incoming>
+      <bpmn:incoming>Flow_1iehl6a</bpmn:incoming>
       <bpmn:outgoing>Flow_1o2c9au</bpmn:outgoing>
       <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_0xne5gi">
         <bpmn:condition xsi:type="bpmn:tFormalExpression">${requestDone==true}</bpmn:condition>
@@ -22,20 +22,12 @@
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_1o2c9au" sourceRef="Event_0uetrfz" targetRef="Event_0f4ah0w" />
     <bpmn:sequenceFlow id="Flow_1jet9rd" sourceRef="Generate_request" targetRef="Sleeper" />
-    <bpmn:serviceTask id="Sleeper" name="Sleeper" camunda:class="com.example.workflow.Sleeper">
+    <bpmn:serviceTask id="Sleeper" name="Sleeper" camunda:class="com.example.workflow.util.Sleeper">
       <bpmn:incoming>Flow_1jet9rd</bpmn:incoming>
-      <bpmn:outgoing>Flow_0r21n6y</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1iehl6a</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:task id="Activity_14nrrgr" name="Printer" />
-    <bpmn:sequenceFlow id="Flow_0r21n6y" sourceRef="Sleeper" targetRef="Event_0uizos3" />
-    <bpmn:intermediateCatchEvent id="Event_0uizos3">
-      <bpmn:incoming>Flow_0r21n6y</bpmn:incoming>
-      <bpmn:outgoing>Flow_1nz9xwo</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_03thcvs">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_1nz9xwo" sourceRef="Event_0uizos3" targetRef="Event_0uetrfz" />
+    <bpmn:sequenceFlow id="Flow_1iehl6a" sourceRef="Sleeper" targetRef="Event_0uetrfz" />
     <bpmn:textAnnotation id="TextAnnotation_1wq6wup">
       <bpmn:text>updates the variable</bpmn:text>
     </bpmn:textAnnotation>
@@ -46,10 +38,6 @@
 Ending sleep</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1k5w3fy" sourceRef="Sleeper" targetRef="TextAnnotation_0tf75lx" />
-    <bpmn:textAnnotation id="TextAnnotation_05t11m7">
-      <bpmn:text>Waits 1 second</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_172mwu3" sourceRef="Event_0uizos3" targetRef="TextAnnotation_05t11m7" />
     <bpmn:textAnnotation id="TextAnnotation_15zdueu">
       <bpmn:text>Calls printer</bpmn:text>
     </bpmn:textAnnotation>
@@ -64,54 +52,35 @@ Ending sleep</bpmn:text>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="detached_setup">
       <bpmndi:BPMNShape id="TextAnnotation_0tf75lx_di" bpmnElement="TextAnnotation_0tf75lx">
-        <dc:Bounds x="450" y="540" width="100" height="54" />
+        <dc:Bounds x="500" y="530" width="100" height="54" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1wq6wup_di" bpmnElement="TextAnnotation_1wq6wup">
-        <dc:Bounds x="450" y="100" width="200" height="26" />
+        <dc:Bounds x="490" y="100" width="200" height="26" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_05t11m7_di" bpmnElement="TextAnnotation_05t11m7">
-        <dc:Bounds x="600" y="490" width="100" height="26" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_15zdueu_di" bpmnElement="TextAnnotation_15zdueu">
-        <dc:Bounds x="270" y="280" width="100" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_14s6xpn_di" bpmnElement="TextAnnotation_14s6xpn">
-        <dc:Bounds x="720" y="310" width="100" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0jx2oka_di" bpmnElement="Flow_0jx2oka">
-        <di:waypoint x="188" y="430" />
-        <di:waypoint x="270" y="430" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1jet9rd_di" bpmnElement="Flow_1jet9rd">
         <di:waypoint x="370" y="430" />
-        <di:waypoint x="450" y="430" />
+        <di:waypoint x="500" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1o2c9au_di" bpmnElement="Flow_1o2c9au">
         <di:waypoint x="788" y="430" />
         <di:waypoint x="872" y="430" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0r21n6y_di" bpmnElement="Flow_0r21n6y">
-        <di:waypoint x="550" y="430" />
-        <di:waypoint x="632" y="430" />
+      <bpmndi:BPMNEdge id="Flow_0jx2oka_di" bpmnElement="Flow_0jx2oka">
+        <di:waypoint x="188" y="430" />
+        <di:waypoint x="270" y="430" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1nz9xwo_di" bpmnElement="Flow_1nz9xwo">
-        <di:waypoint x="668" y="430" />
+      <bpmndi:BPMNEdge id="Flow_1iehl6a_di" bpmnElement="Flow_1iehl6a">
+        <di:waypoint x="600" y="430" />
         <di:waypoint x="752" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="152" y="412" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0sdbnhs_di" bpmnElement="Generate_request">
-        <dc:Bounds x="270" y="390" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xwfa1j_di" bpmnElement="Sleeper">
-        <dc:Bounds x="450" y="390" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_14nrrgr_di" bpmnElement="Activity_14nrrgr">
-        <dc:Bounds x="450" y="190" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1krpsel_di" bpmnElement="Event_0f4ah0w">
         <dc:Bounds x="872" y="412" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sdbnhs_di" bpmnElement="Generate_request">
+        <dc:Bounds x="270" y="390" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0373zpq_di" bpmnElement="Event_0uetrfz">
         <dc:Bounds x="752" y="412" width="36" height="36" />
@@ -119,36 +88,41 @@ Ending sleep</bpmn:text>
           <dc:Bounds x="744" y="455" width="53" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1jtuo7q_di" bpmnElement="Event_0uizos3">
-        <dc:Bounds x="632" y="412" width="36" height="36" />
+      <bpmndi:BPMNShape id="TextAnnotation_15zdueu_di" bpmnElement="TextAnnotation_15zdueu">
+        <dc:Bounds x="270" y="280" width="100" height="30" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1k5w3fy_di" bpmnElement="Association_1k5w3fy">
-        <di:waypoint x="500" y="470" />
-        <di:waypoint x="500" y="540" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1lol0p2_di" bpmnElement="Association_1lol0p2">
-        <di:waypoint x="500" y="190" />
-        <di:waypoint x="500" y="126" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_172mwu3_di" bpmnElement="Association_172mwu3">
-        <di:waypoint x="650" y="448" />
-        <di:waypoint x="650" y="490" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_14s6xpn_di" bpmnElement="TextAnnotation_14s6xpn">
+        <dc:Bounds x="720" y="310" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xwfa1j_di" bpmnElement="Sleeper">
+        <dc:Bounds x="500" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14nrrgr_di" bpmnElement="Activity_14nrrgr">
+        <dc:Bounds x="490" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_07j4soa_di" bpmnElement="Association_07j4soa">
         <di:waypoint x="320" y="390" />
         <di:waypoint x="320" y="310" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_12m02y0_di" bpmnElement="Association_12m02y0">
-        <di:waypoint x="352" y="280" />
-        <di:waypoint x="450" y="235" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0yd6mzv_di" bpmnElement="Association_0yd6mzv">
         <di:waypoint x="770" y="412" />
         <di:waypoint x="770" y="340" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1k5w3fy_di" bpmnElement="Association_1k5w3fy">
+        <di:waypoint x="550" y="470" />
+        <di:waypoint x="550" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_12m02y0_di" bpmnElement="Association_12m02y0">
+        <di:waypoint x="360" y="280" />
+        <di:waypoint x="490" y="231" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1b3nz4u_di" bpmnElement="Association_1b3nz4u">
-        <di:waypoint x="734" y="310" />
-        <di:waypoint x="550" y="234" />
+        <di:waypoint x="739" y="310" />
+        <di:waypoint x="590" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1lol0p2_di" bpmnElement="Association_1lol0p2">
+        <di:waypoint x="540" y="190" />
+        <di:waypoint x="540" y="126" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

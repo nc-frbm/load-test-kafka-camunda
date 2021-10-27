@@ -1,4 +1,4 @@
-package com.example.workflow;
+package com.example.workflow.util;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -12,8 +12,6 @@ public class Printer implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        delegateExecution.setVariable("requestDone", true);
-        System.out.println("PRINTER: I updated the condition to true for instance ID: " + delegateExecution.getActivityInstanceId());
+        System.out.println("PRINTER: I was called for activity: " + delegateExecution.getActivityInstanceId());
     }
-
 }

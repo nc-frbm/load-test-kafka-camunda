@@ -1,4 +1,4 @@
-package com.example.workflow;
+package com.example.workflow.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -61,7 +61,8 @@ public class KafkaConsumerConfig {
 
     @KafkaListener(topics = "dms.load.test.1", groupId = "${spring.kafka.consumer.group-id}")
     public void listenGroupFoo(String businessKey) {
-        runtimeService.correlateMessage("ResponseMessage", businessKey);
-        System.out.println("Correlation of businessKey " + businessKey);
+        System.out.println("Reading kafka message " + businessKey);
     }
+
+
 }

@@ -16,6 +16,7 @@ public class Application implements ApplicationRunner {
   public void sendMessage(String msg) {
     if (kafkaTemplate != null) {
       kafkaTemplate.send("dms.load.test.1", msg);
+      System.out.println("Send kafka message");
     } else {
       System.out.println("Kafka not enabled");
     }
@@ -28,6 +29,6 @@ public class Application implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-//    sendMessage("test test");
+    sendMessage("test test");
   }
 }

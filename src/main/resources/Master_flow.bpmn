@@ -18,7 +18,7 @@
       <bpmn:incoming>Flow_0j4reur</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_116s14q" />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1lw747p" name="Print response" camunda:class="com.example.workflow.FinalPrinter">
+    <bpmn:serviceTask id="Activity_1lw747p" name="Print response" camunda:class="com.example.workflow.util.FinalPrinter">
       <bpmn:incoming>Flow_0mb6kc9</bpmn:incoming>
       <bpmn:outgoing>Flow_0j4reur</bpmn:outgoing>
     </bpmn:serviceTask>

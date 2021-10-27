@@ -1,4 +1,4 @@
-package com.example.workflow;
+package com.example.workflow.kafka;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -25,8 +25,8 @@ public class KafkaTopicConfig {
         return new KafkaAdmin(configs);
     }
 
-//    @Bean
-//    public NewTopic topic1() {
-//        return new NewTopic("dms.load.test.1", 1, (short) 1);
-//    }
+    @Bean
+    public NewTopic topic1() {
+        return new NewTopic("dms.load.test.1", 1, (short) 1);
+    }
 }
