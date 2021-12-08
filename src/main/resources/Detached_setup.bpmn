@@ -2,39 +2,28 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0bxr1wx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="detached_setup" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
-      <bpmn:outgoing>Flow_0jx2oka</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0oqa4ne</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0jx2oka" sourceRef="StartEvent_1" targetRef="Generate_request" />
     <bpmn:endEvent id="Event_0f4ah0w">
       <bpmn:incoming>Flow_1o2c9au</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_116s14q" />
     </bpmn:endEvent>
     <bpmn:serviceTask id="Generate_request" name="Process Manager" camunda:asyncBefore="true" camunda:class="com.example.workflow.integration.ProcessManager">
-      <bpmn:incoming>Flow_0jx2oka</bpmn:incoming>
-      <bpmn:outgoing>Flow_1jet9rd</bpmn:outgoing>
+      <bpmn:incoming>Flow_0oqa4ne</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l5ll36</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1o2c9au" sourceRef="Event_0uetrfz" targetRef="Event_0f4ah0w" />
+    <bpmn:task id="Activity_14nrrgr" name="Validation" />
+    <bpmn:task id="Activity_0f11g5p" name="Process manager" />
     <bpmn:intermediateCatchEvent id="Event_0uetrfz" name="Waiting for request to complete">
-      <bpmn:incoming>Flow_1iehl6a</bpmn:incoming>
+      <bpmn:incoming>Flow_1l5ll36</bpmn:incoming>
       <bpmn:outgoing>Flow_1o2c9au</bpmn:outgoing>
       <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_0xne5gi">
         <bpmn:condition xsi:type="bpmn:tFormalExpression">${validationDone==true}</bpmn:condition>
       </bpmn:conditionalEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_1o2c9au" sourceRef="Event_0uetrfz" targetRef="Event_0f4ah0w" />
-    <bpmn:sequenceFlow id="Flow_1jet9rd" sourceRef="Generate_request" targetRef="Sleeper" />
-    <bpmn:serviceTask id="Sleeper" name="Sleeper" camunda:class="com.example.workflow.util.Sleeper">
-      <bpmn:incoming>Flow_1jet9rd</bpmn:incoming>
-      <bpmn:outgoing>Flow_1iehl6a</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:task id="Activity_14nrrgr" name="Validation" />
-    <bpmn:sequenceFlow id="Flow_1iehl6a" sourceRef="Sleeper" targetRef="Event_0uetrfz" />
-    <bpmn:task id="Activity_0f11g5p" name="Process manager" />
-    <bpmn:textAnnotation id="TextAnnotation_0tf75lx">
-      <bpmn:text>Starting sleep
-...
-Ending sleep</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_1k5w3fy" sourceRef="Sleeper" targetRef="TextAnnotation_0tf75lx" />
+    <bpmn:sequenceFlow id="Flow_0oqa4ne" sourceRef="StartEvent_1" targetRef="Generate_request" />
+    <bpmn:sequenceFlow id="Flow_1l5ll36" sourceRef="Generate_request" targetRef="Event_0uetrfz" />
     <bpmn:textAnnotation id="TextAnnotation_15zdueu">
       <bpmn:text>Execute validation dms.load.test.validation.start</bpmn:text>
     </bpmn:textAnnotation>
@@ -54,8 +43,29 @@ dms.load.test.validation.completed</bpmn:text>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="detached_setup">
-      <bpmndi:BPMNShape id="TextAnnotation_0tf75lx_di" bpmnElement="TextAnnotation_0tf75lx">
-        <dc:Bounds x="500" y="500" width="100" height="54" />
+      <bpmndi:BPMNEdge id="Flow_1o2c9au_di" bpmnElement="Flow_1o2c9au">
+        <di:waypoint x="648" y="400" />
+        <di:waypoint x="872" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oqa4ne_di" bpmnElement="Flow_0oqa4ne">
+        <di:waypoint x="188" y="400" />
+        <di:waypoint x="390" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l5ll36_di" bpmnElement="Flow_1l5ll36">
+        <di:waypoint x="490" y="400" />
+        <di:waypoint x="612" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="382" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1krpsel_di" bpmnElement="Event_0f4ah0w">
+        <dc:Bounds x="872" y="382" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14nrrgr_di" bpmnElement="Activity_14nrrgr">
+        <dc:Bounds x="430" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f11g5p_di" bpmnElement="Activity_0f11g5p">
+        <dc:Bounds x="739" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_15zdueu_di" bpmnElement="TextAnnotation_15zdueu">
         <dc:Bounds x="270" y="250" width="193" height="40" />
@@ -66,54 +76,15 @@ dms.load.test.validation.completed</bpmn:text>
       <bpmndi:BPMNShape id="TextAnnotation_1j56vsk_di" bpmnElement="TextAnnotation_1j56vsk">
         <dc:Bounds x="590" y="80" width="200" height="40" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1iehl6a_di" bpmnElement="Flow_1iehl6a">
-        <di:waypoint x="600" y="400" />
-        <di:waypoint x="752" y="400" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1jet9rd_di" bpmnElement="Flow_1jet9rd">
-        <di:waypoint x="370" y="400" />
-        <di:waypoint x="500" y="400" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1o2c9au_di" bpmnElement="Flow_1o2c9au">
-        <di:waypoint x="788" y="400" />
-        <di:waypoint x="872" y="400" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0jx2oka_di" bpmnElement="Flow_0jx2oka">
-        <di:waypoint x="188" y="400" />
-        <di:waypoint x="270" y="400" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="152" y="382" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1krpsel_di" bpmnElement="Event_0f4ah0w">
-        <dc:Bounds x="872" y="382" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0sdbnhs_di" bpmnElement="Generate_request">
-        <dc:Bounds x="270" y="360" width="100" height="80" />
+        <dc:Bounds x="390" y="360" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0373zpq_di" bpmnElement="Event_0uetrfz">
-        <dc:Bounds x="752" y="382" width="36" height="36" />
+        <dc:Bounds x="612" y="382" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="744" y="425" width="53" height="40" />
+          <dc:Bounds x="604" y="425" width="53" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xwfa1j_di" bpmnElement="Sleeper">
-        <dc:Bounds x="500" y="360" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0f11g5p_di" bpmnElement="Activity_0f11g5p">
-        <dc:Bounds x="739" y="140" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_14nrrgr_di" bpmnElement="Activity_14nrrgr">
-        <dc:Bounds x="430" y="100" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1k5w3fy_di" bpmnElement="Association_1k5w3fy">
-        <di:waypoint x="550" y="440" />
-        <di:waypoint x="550" y="500" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_07j4soa_di" bpmnElement="Association_07j4soa">
-        <di:waypoint x="320" y="360" />
-        <di:waypoint x="320" y="290" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_12m02y0_di" bpmnElement="Association_12m02y0">
         <di:waypoint x="337" y="250" />
         <di:waypoint x="430" y="167" />
@@ -122,17 +93,21 @@ dms.load.test.validation.completed</bpmn:text>
         <di:waypoint x="759" y="220" />
         <di:waypoint x="759" y="280" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1v61zko_di" bpmnElement="Association_1v61zko">
-        <di:waypoint x="770" y="382" />
-        <di:waypoint x="769" y="310" />
+      <bpmndi:BPMNEdge id="Association_0wo0bjz_di" bpmnElement="Association_0wo0bjz">
+        <di:waypoint x="640" y="120" />
+        <di:waypoint x="739" y="174" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1fkfe71_di" bpmnElement="Association_1fkfe71">
         <di:waypoint x="530" y="125" />
         <di:waypoint x="590" y="106" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0wo0bjz_di" bpmnElement="Association_0wo0bjz">
-        <di:waypoint x="640" y="120" />
-        <di:waypoint x="739" y="174" />
+      <bpmndi:BPMNEdge id="Association_07j4soa_di" bpmnElement="Association_07j4soa">
+        <di:waypoint x="403" y="360" />
+        <di:waypoint x="338" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1v61zko_di" bpmnElement="Association_1v61zko">
+        <di:waypoint x="644" y="389" />
+        <di:waypoint x="749" y="310" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

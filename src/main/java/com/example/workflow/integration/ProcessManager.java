@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Configuration
 public class ProcessManager implements JavaDelegate {
 
@@ -21,18 +26,28 @@ public class ProcessManager implements JavaDelegate {
     @KafkaListener(topics = "dms.load.test.process.start", groupId = "${spring.kafka.consumer.group-id}")
     public void listenForProcessStart(String kafka) {
         System.out.println(getClass().getSimpleName() + ": Reading kafka message from process.start " + kafka);
-        runtimeService.startProcessInstanceByKey("master_flow", kafka);
+        Map<String, Object> map = new HashMap<>();
+        map.put("validationDone", false);
+        runtimeService.startProcessInstanceByKey("master_flow", kafka, map);
     }
 
     @KafkaListener(topics = "dms.load.test.validation.completed", groupId = "${spring.kafka.consumer.group-id}")
     public void listenForValidationCompleted(String completedEvent) {
         System.out.println(getClass().getSimpleName() + ": received completed validation event: " + completedEvent);
-        //updateVariable(completedEvent);
+        updateVariable(completedEvent);
     }
 
     private void updateVariable(String executionId){
-        runtimeService.setVariable(executionId, "validationDone", true);
-        System.out.println("I updated the variable for process=" + executionId);
+        System.out.println("Active: " + runtimeService.getActiveActivityIds(executionId));
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("validationDone", true);
+
+        List<String> executionIds = new ArrayList<>();
+        executionIds.add(executionId);
+
+        System.out.println("Going to update variable for process=" + executionId);
+        runtimeService.setVariablesAsync(executionIds, variables);
     }
 
     @Override

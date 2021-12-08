@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0bxr1wx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="stuck_flow" name="stuck_flow" isExecutable="true">
+    <bpmn:startEvent id="Event_14xp8h9">
+      <bpmn:outgoing>Flow_1sezsrl</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_1k1fosr">
+      <bpmn:incoming>Flow_0v0c3ca</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="stuck_flow_one" name="First one">
+      <bpmn:incoming>Flow_1sezsrl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wyc2ho</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1sezsrl" sourceRef="Event_14xp8h9" targetRef="stuck_flow_one" />
+    <bpmn:sequenceFlow id="Flow_0wyc2ho" sourceRef="stuck_flow_one" targetRef="stuck_flow_two" />
+    <bpmn:sequenceFlow id="Flow_1fk6vuh" sourceRef="stuck_flow_two" targetRef="stuck_flow_third" />
+    <bpmn:sequenceFlow id="Flow_0v0c3ca" sourceRef="stuck_flow_third" targetRef="Event_1k1fosr" />
+    <bpmn:serviceTask id="stuck_flow_third" name="Third one" camunda:asyncBefore="true" camunda:class="com.example.workflow.util.StuckFlowUtil">
+      <bpmn:incoming>Flow_1fk6vuh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v0c3ca</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="stuck_flow_two" name="Second one" camunda:class="com.example.workflow.util.Incrementer">
+      <bpmn:incoming>Flow_0wyc2ho</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fk6vuh</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="stuck_flow">
+      <bpmndi:BPMNEdge id="Flow_1sezsrl_di" bpmnElement="Flow_1sezsrl">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wyc2ho_di" bpmnElement="Flow_0wyc2ho">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="480" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fk6vuh_di" bpmnElement="Flow_1fk6vuh">
+        <di:waypoint x="580" y="120" />
+        <di:waypoint x="700" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v0c3ca_di" bpmnElement="Flow_0v0c3ca">
+        <di:waypoint x="800" y="120" />
+        <di:waypoint x="852" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_14xp8h9_di" bpmnElement="Event_14xp8h9">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1k1fosr_di" bpmnElement="Event_1k1fosr">
+        <dc:Bounds x="852" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0iou48e_di" bpmnElement="stuck_flow_one">
+        <dc:Bounds x="280" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bizimq_di" bpmnElement="stuck_flow_third">
+        <dc:Bounds x="700" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07nxsyd_di" bpmnElement="stuck_flow_two">
+        <dc:Bounds x="480" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
