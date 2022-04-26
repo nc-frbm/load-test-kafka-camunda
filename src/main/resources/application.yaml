@@ -1,13 +1,20 @@
 server.port: 8090
-camunda.bpm.admin-user:
-  id: admin
-  password: admin
+camunda.bpm:
+  job-execution:
+    core-pool-size: 5
+    max-pool-size: 20
+    max-jobs-per-acquisition: 10
+    queue-capacity: 10
+  admin-user:
+    id: admin
+    password: admin
+
 spring:
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:9092
     consumer:
       group-id: LOAD-TEST
   datasource:
     url: jdbc:h2:file:./camunda-h2-database
   profiles:
-    active: kafka
+    active: default

@@ -5,6 +5,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+
 public class Printer implements JavaDelegate {
 
     @Autowired
@@ -12,6 +14,7 @@ public class Printer implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        System.out.println("PRINTER: I was called for activity: " + delegateExecution.getActivityInstanceId());
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("PRINTER: I was called for business key: " + delegateExecution.getBusinessKey() + "__" + now);
     }
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0bxr1wx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="master_flow" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" camunda:asyncBefore="true" camunda:asyncAfter="true">
       <bpmn:outgoing>Flow_0jx2oka</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0jx2oka" sourceRef="StartEvent_1" targetRef="Requester" />
     <bpmn:sequenceFlow id="Flow_0mb6kc9" sourceRef="Requester" targetRef="final_printer" />
     <bpmn:sequenceFlow id="Flow_0j4reur" sourceRef="final_printer" targetRef="Event_0f4ah0w" />
-    <bpmn:callActivity id="Requester" name="Generate request" calledElement="detached_setup">
+    <bpmn:callActivity id="Requester" name="Generate request" camunda:asyncBefore="true" camunda:asyncAfter="true" calledElement="detached_setup">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
       </bpmn:extensionElements>
@@ -18,7 +18,7 @@
       <bpmn:incoming>Flow_0j4reur</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_116s14q" />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="final_printer" name="Print response" camunda:class="com.example.workflow.util.FinalPrinter">
+    <bpmn:serviceTask id="final_printer" name="Print response" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="com.example.workflow.util.FinalPrinter">
       <bpmn:incoming>Flow_0mb6kc9</bpmn:incoming>
       <bpmn:outgoing>Flow_0j4reur</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -34,42 +34,42 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="master_flow">
       <bpmndi:BPMNEdge id="Flow_0j4reur_di" bpmnElement="Flow_0j4reur">
-        <di:waypoint x="500" y="200" />
-        <di:waypoint x="562" y="200" />
+        <di:waypoint x="750" y="200" />
+        <di:waypoint x="872" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0mb6kc9_di" bpmnElement="Flow_0mb6kc9">
-        <di:waypoint x="340" y="200" />
-        <di:waypoint x="400" y="200" />
+        <di:waypoint x="385" y="200" />
+        <di:waypoint x="650" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jx2oka_di" bpmnElement="Flow_0jx2oka">
         <di:waypoint x="188" y="200" />
-        <di:waypoint x="240" y="200" />
+        <di:waypoint x="285" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="152" y="182" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1og2mbt_di" bpmnElement="Requester">
-        <dc:Bounds x="240" y="160" width="100" height="80" />
+        <dc:Bounds x="285" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1krpsel_di" bpmnElement="Event_0f4ah0w">
-        <dc:Bounds x="562" y="182" width="36" height="36" />
+        <dc:Bounds x="872" y="182" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0j6esd6_di" bpmnElement="final_printer">
-        <dc:Bounds x="400" y="160" width="100" height="80" />
+        <dc:Bounds x="650" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0cc5bzb_di" bpmnElement="TextAnnotation_0cc5bzb">
-        <dc:Bounds x="400" y="85" width="130" height="30" />
+        <dc:Bounds x="635" y="85" width="130" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0sy55ev_di" bpmnElement="TextAnnotation_0sy55ev">
-        <dc:Bounds x="190" y="85" width="130" height="30" />
+        <dc:Bounds x="270" y="85" width="130" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_16w8p53_di" bpmnElement="Association_16w8p53">
-        <di:waypoint x="450" y="160" />
-        <di:waypoint x="450" y="115" />
+        <di:waypoint x="694" y="160" />
+        <di:waypoint x="687" y="115" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1vb68zy_di" bpmnElement="Association_1vb68zy">
-        <di:waypoint x="290" y="160" />
-        <di:waypoint x="290" y="115" />
+        <di:waypoint x="349" y="160" />
+        <di:waypoint x="365" y="115" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

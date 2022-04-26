@@ -12,14 +12,12 @@ public class ValidationService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    @KafkaListener(topics = "dms.load.test.validation.start.no.2", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "dms.load.test.validation.start", groupId = "${spring.kafka.consumer.group-id}")
     public void listenGroupFoo(String processInstanceId) {
-        System.out.println(getClass().getSimpleName() + ": Read validation.request event with processInstanceId=" + processInstanceId);
         publishValidationResult(processInstanceId);
     }
 
     private void publishValidationResult(String processInstanceId){
         kafkaTemplate.send(Topic.VALIDATION_COMPLETED.getTopic(), processInstanceId);
-        System.out.println(getClass().getSimpleName() + ": Sending response to " + Topic.VALIDATION_COMPLETED.getTopic());
     }
 }

@@ -15,6 +15,7 @@ public class Application implements ApplicationRunner {
   private KafkaTemplate<String, String> kafkaTemplate;
 
   public void sendMessage(String msg) {
+    System.out.println("Sending message");
     if (kafkaTemplate != null) {
       kafkaTemplate.send(Topic.PROCESS_START.getTopic(), msg);
     } else {
@@ -29,6 +30,6 @@ public class Application implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    sendMessage("test-asr-123");
+//    sendMessage("test-asr-123");
   }
 }
