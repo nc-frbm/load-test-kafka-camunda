@@ -1,0 +1,5 @@
+For emulators:
+http://localhost:9180/emulator-app/emulators/stop
+http://localhost:9180/emulator-app/emulators/ExternalSystemValidationRequestStreamEmulator/start
+http://localhost:9180/emulator-app/emulators/ExternalTariffRequestStreamEmulator/start
+http://localhost:9180/emulator-app/emulators/ExternalTariffValidationRequestStreamEmulator/start

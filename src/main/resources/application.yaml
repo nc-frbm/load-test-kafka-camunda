@@ -1,20 +1,17 @@
 server.port: 8090
-camunda.bpm:
-  job-execution:
-    core-pool-size: 5
-    max-pool-size: 20
-    max-jobs-per-acquisition: 10
-    queue-capacity: 10
-  admin-user:
-    id: admin
-    password: admin
 
 spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: LOAD-TEST
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
   datasource:
-    url: jdbc:h2:file:./camunda-h2-database
+    url: jdbc:postgresql://localhost:5432/cwm_import_validation_db
+    username: postgres
+    password: postgres
   profiles:
     active: default
