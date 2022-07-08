@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import javax.annotation.PreDestroy;
+
 @SpringBootApplication
 public class Application implements ApplicationRunner {
 
@@ -27,6 +29,10 @@ public class Application implements ApplicationRunner {
     SpringApplication.run(Application.class, args);
   }
 
+  @PreDestroy
+  public void tearDown(){
+    System.out.println("HELP ME IM DYING");
+  }
 
   @Override
   public void run(ApplicationArguments args) throws Exception {

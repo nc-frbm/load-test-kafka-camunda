@@ -13,14 +13,10 @@ import java.io.*;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
 public class StartProcessController {
-
-//    @Autowired
-//    RuntimeService runtimeService;
 
     @Autowired(required = false)
     private KafkaTemplate<String, String> kafkaTemplate;
