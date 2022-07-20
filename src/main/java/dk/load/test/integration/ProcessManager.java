@@ -1,5 +1,8 @@
-package com.example.workflow.integration;
+package dk.load.test.integration;
 
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.impl.RuntimeServiceImpl;
+import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -12,20 +15,21 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
+@EnableProcessApplication
 public class ProcessManager {
 
     @Autowired()
     private KafkaTemplate<String, String> kafkaTemplate;
 
-//    @Autowired
-//    RuntimeService runtimeService;
+    @Autowired()
+    RuntimeService runtimeService;
 
     @KafkaListener(topics = "dms.load.test.process.start", groupId = "${spring.kafka.consumer.group-id}")
     public void listenForProcessStart(String kafka) {
         Map<String, Object> map = new HashMap<>();
         map.put("validationDone", false);
         map.put("startTime", LocalDateTime.now());
-//        runtimeService.startProcessInstanceByKey("master_flow", kafka, map);
+        runtimeService.startProcessInstanceByKey("master_flow", kafka, map);
     }
 
     @KafkaListener(topics = "dms.load.test.validation.completed", groupId = "${spring.kafka.consumer.group-id}")

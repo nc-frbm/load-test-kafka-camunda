@@ -1,6 +1,6 @@
-package com.example.workflow.integration;
+package dk.load.test.integration;
 
-import com.example.workflow.kafka.Topic;
+import dk.load.test.kafka.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -23,7 +23,7 @@ public class ValidationService {
     @KafkaListener(topics = "cwm.validation.validation-results", groupId = "${spring.kafka.consumer.group-id}")
     public void listenForValidationResults(String message) {
         try{
-            Pattern pattern = Pattern.compile("[0-9]IDLOAD.[0-9]*");
+            Pattern pattern = Pattern.compile("[0-9]*IDLOAD.[0-9]*");
             Matcher matcher = pattern.matcher(message);
             boolean matchFound = matcher.find();
             String id = matcher.group(0);

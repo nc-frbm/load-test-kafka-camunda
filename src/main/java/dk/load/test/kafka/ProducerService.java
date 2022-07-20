@@ -1,4 +1,4 @@
-package com.example.workflow.kafka;
+package dk.load.test.kafka;
 
 import org.springframework.kafka.core.KafkaTemplate;
 

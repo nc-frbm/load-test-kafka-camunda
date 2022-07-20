@@ -15,11 +15,11 @@
     <bpmn:sequenceFlow id="Flow_0wyc2ho" sourceRef="stuck_flow_one" targetRef="stuck_flow_two" />
     <bpmn:sequenceFlow id="Flow_1fk6vuh" sourceRef="stuck_flow_two" targetRef="stuck_flow_third" />
     <bpmn:sequenceFlow id="Flow_0v0c3ca" sourceRef="stuck_flow_third" targetRef="Event_1k1fosr" />
-    <bpmn:serviceTask id="stuck_flow_third" name="Third one" camunda:asyncBefore="true" camunda:class="com.example.workflow.util.StuckFlowUtil">
+    <bpmn:serviceTask id="stuck_flow_third" name="Third one" camunda:asyncBefore="true" camunda:class="dk.load.test.util.StuckFlowUtil">
       <bpmn:incoming>Flow_1fk6vuh</bpmn:incoming>
       <bpmn:outgoing>Flow_0v0c3ca</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="stuck_flow_two" name="Second one" camunda:class="com.example.workflow.util.Incrementer">
+    <bpmn:serviceTask id="stuck_flow_two" name="Second one" camunda:class="dk.load.test.util.Incrementer">
       <bpmn:incoming>Flow_0wyc2ho</bpmn:incoming>
       <bpmn:outgoing>Flow_1fk6vuh</bpmn:outgoing>
     </bpmn:serviceTask>

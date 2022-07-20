@@ -1,4 +1,4 @@
-package com.example.workflow.kafka;
+package dk.load.test.kafka;
 
 public enum Topic {
     DMS_LOAD_TEST("dms.load.test.1"),

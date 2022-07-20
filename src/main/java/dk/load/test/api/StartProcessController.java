@@ -1,8 +1,8 @@
-package com.example.workflow.api;
+package dk.load.test.api;
 
-import com.example.workflow.ermis.ProcessingStatus;
-import com.example.workflow.ermis.ProcessingStatusRepository;
-import com.example.workflow.kafka.Topic;
+import dk.load.test.ermis.ProcessingStatus;
+import dk.load.test.ermis.ProcessingStatusRepository;
+import dk.load.test.kafka.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
-import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 

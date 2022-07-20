@@ -1,4 +1,4 @@
-package com.example.workflow.kafka;
+package dk.load.test.kafka;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

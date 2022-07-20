@@ -8,10 +8,11 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
-  datasource:
-    url: jdbc:postgresql://localhost:5432/cwm_import_validation_db
-    username: postgres
-    password: postgres
+      ddl-auto: none
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/cwm_import_validation_db
+#    username: postgres
+#    password: postgres
+#    initialization-mode: always
   profiles:
     active: default

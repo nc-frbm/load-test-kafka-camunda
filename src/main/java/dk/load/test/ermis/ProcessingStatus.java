@@ -1,4 +1,4 @@
-package com.example.workflow.ermis;
+package dk.load.test.ermis;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Generated;

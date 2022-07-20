@@ -8,7 +8,7 @@
       <bpmn:incoming>Flow_1o2c9au</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_116s14q" />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Generate_request" name="Process Manager" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="com.example.workflow.integration.ProcessManager">
+    <bpmn:serviceTask id="Generate_request" name="Process Manager" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="dk.load.test.integration.ProcessManager">
       <bpmn:incoming>Flow_0oqa4ne</bpmn:incoming>
       <bpmn:outgoing>Flow_1l5ll36</bpmn:outgoing>
     </bpmn:serviceTask>

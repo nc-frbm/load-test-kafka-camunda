@@ -1,4 +1,4 @@
-package com.example.workflow.util;
+package dk.load.test.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

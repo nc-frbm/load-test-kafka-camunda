@@ -1,6 +1,6 @@
-package com.example.workflow;
+package dk.load.test;
 
-import com.example.workflow.kafka.Topic;
+import dk.load.test.kafka.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

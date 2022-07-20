@@ -1,4 +1,4 @@
-package com.example.workflow.ermis;
+package dk.load.test.ermis;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
